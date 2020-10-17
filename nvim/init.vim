@@ -8,6 +8,8 @@ Plug 'nvim-lua/diagnostic-nvim'
 
 call plug#end()
 
+sign define LspDiagnosticsErrorSign text= linehl= texthl=LspDiagnosticsErrorSign numhl=
+sign define LspDiagnosticsWarningSign text= linehl= texthl=LspDiagnosticsWarningSign numhl=
 lua <<EOF
 local nvim_lsp = require'nvim_lsp'
 
@@ -31,7 +33,6 @@ set signcolumn=yes
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 
-let g:LspDiagnosticsErrorSign = 'E'
 let g:diagnostic_enable_virtual_text = 1
 let g:diagnostic_trimmed_virtual_text = '40'
 " Don't show diagnostics while in insert mode
