@@ -19,14 +19,14 @@ set shell=sh
 sign define LspDiagnosticsErrorSign text= linehl= texthl=LspDiagnosticsErrorSign numhl=
 sign define LspDiagnosticsWarningSign text= linehl= texthl=LspDiagnosticsWarningSign numhl=
 lua <<EOF
-local nvim_lsp = require'nvim_lsp'
+local lspconfig = require'lspconfig'
 
 local on_attach = function(client)
 	require'completion'.on_attach(client)
 	require'diagnostic'.on_attach(client)
 end
 
-nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+lspconfig.rust_analyzer.setup({ on_attach=on_attach })
 
 EOF
 
@@ -58,7 +58,7 @@ let g:diagnostic_insert_delay = 1
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 " Show diagnostic popup on cursor hold
-autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
 nnoremap <silent> ff <cmd>GFiles<cr>
 nnoremap <silent> fg <cmd>Rg<cr>
