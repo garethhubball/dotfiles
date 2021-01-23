@@ -1,47 +1,69 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'arcticicestudio/nord-vim'
+Plug 'gruvbox-community/gruvbox'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp_extensions.nvim'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/diagnostic-nvim'
-Plug 'preservim/nerdtree'
-Plug 'ryanoasis/vim-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'mhinz/vim-crates'
 Plug 'cespare/vim-toml'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 call plug#end()
 
+let mapleader=" "
 set shell=sh
-sign define LspDiagnosticsErrorSign text= linehl= texthl=LspDiagnosticsErrorSign numhl=
-sign define LspDiagnosticsWarningSign text= linehl= texthl=LspDiagnosticsWarningSign numhl=
+sign define LspDiagnosticsSignError text= linehl= texthl=LspDiagnosticsDefaultError numhl=
+sign define LspDiagnosticsSignWarning text= linehl= texthl=LspDiagnosticsDefaultWarning numhl=
+sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=
+sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=
+
 lua <<EOF
 local lspconfig = require'lspconfig'
 
-local on_attach = function(client)
-	require'completion'.on_attach(client)
-	require'diagnostic'.on_attach(client)
-end
+lspconfig.rust_analyzer.setup({})
 
-lspconfig.rust_analyzer.setup({ on_attach=on_attach })
+require'nvim-web-devicons'.setup {
+  default = true;
+}
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- This will disable virtual text, like doing:
+    -- let g:diagnostic_enable_virtual_text = 0
+    virtual_text = false,
+
+    -- This is similar to:
+    -- let g:diagnostic_show_sign = 1
+    -- To configure sign display,
+    --  see: ":help vim.lsp.diagnostic.set_signs()"
+    signs = true,
+
+    -- This is similar to:
+    -- "let g:diagnostic_insert_delay = 1"
+    -- update_in_insert = false,
+  }
+)
+
+require('telescope').setup({
+  defaults = {
+    file_ignore_patterns = {"target/.*"},
+    layout_strategy = "vertical",
+  }
+})
 
 EOF
 
 syntax enable
 filetype plugin indent on
 
-autocmd vimenter * NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-map <C-n> :NERDTreeToggle<CR>
-
 if has('nvim')
 	autocmd BufRead Cargo.toml call crates#toggle()
 endif
 
-colorscheme nord
+colorscheme gruvbox
 set number
 set relativenumber
 set signcolumn=yes
@@ -60,12 +82,18 @@ set updatetime=300
 " Show diagnostic popup on cursor hold
 autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
-nnoremap <silent> ff <cmd>GFiles<cr>
-nnoremap <silent> fg <cmd>Rg<cr>
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Goto previous/next diagnostic warning/error
-nnoremap <silent> g[ <cmd>PrevDiagnosticCycle<cr>
-nnoremap <silent> g] <cmd>NextDiagnosticCycle<cr>
+nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<cr>
+nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<cr>
+nnoremap <silent> gc <cmd>lua vim.lsp.diagnostic.set_loclist()<cr>
+
+nnoremap <silent> ca <cmd>lua vim.lsp.buf.code_action()<CR>
 
 inoremap <silent><expr> <TAB>
 			\ pumvisible() ? "\<C-n>" :
@@ -82,3 +110,4 @@ autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 \ lua require'lsp_extensions'.inlay_hints{ prefix = ':', highlight = 'Underlined' }
 
 " highlight Comment ctermfg=Yellow guifg=Yellow
+

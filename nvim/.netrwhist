@@ -1,12 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =2
-let g:netrw_dirhist_2='/home/ridecar2/Code/shambolicbot/src'
+let g:netrw_dirhistcnt =1
 let g:netrw_dirhist_1='/home/ridecar2/Code/shambolicbot'
-let g:netrw_dirhist_0='/home/ridecar2/Code/shambolicbot/src'
-let g:netrw_dirhist_9='/home/ridecar2/Code/shambolicbot'
-let g:netrw_dirhist_8='/home/ridecar2/Code/shambolicbot/src'
-let g:netrw_dirhist_7='/home/ridecar2/Code/shambolicbot'
-let g:netrw_dirhist_6='/home/ridecar2/Code/shambolicbot/src'
-let g:netrw_dirhist_5='/home/ridecar2/Code/shambolicbot'
-let g:netrw_dirhist_4='/home/ridecar2/Code/shambolicbot/src'
-let g:netrw_dirhist_3='/home/ridecar2/Code/shambolicbot'

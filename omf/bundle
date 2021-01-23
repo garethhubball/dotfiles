@@ -1,6 +1,3 @@
-package asdf
-package bass
-package rails
 package rustup
 theme bira
 theme default

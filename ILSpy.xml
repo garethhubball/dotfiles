@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ILSpy version="5.0.2.1">
+  <AssemblyLists>
+    <List name="(Default)">
+      <Assembly>/home/ridecar2/.local/share/Steam/steamapps/common/Cities_Skylines/Cities_Data/Managed/Assembly-CSharp.dll</Assembly>
+      <Assembly>/home/ridecar2/ILSpy/System.Linq.dll</Assembly>
+      <Assembly>/home/ridecar2/ILSpy/System.Private.CoreLib.dll</Assembly>
+      <Assembly>/home/ridecar2/ILSpy/System.Private.Uri.dll</Assembly>
+      <Assembly>/home/ridecar2/ILSpy/System.Private.Xml.dll</Assembly>
+    </List>
+  </AssemblyLists>
+  <SessionSettings>
+    <FilterSettings>
+      <ShowAPILevel>1</ShowAPILevel>
+      <Language>C#</Language>
+      <LanguageVersion>CSharp8_0</LanguageVersion>
+    </FilterSettings>
+    <ActiveAssemblyList>(Default)</ActiveAssemblyList>
+    <ActiveTreeViewPath>
+      <Node>\x002Fhome\x002Fridecar2\x002FILSpy\x002FSystem\x002EPrivate\x002ECoreLib\x002Edll</Node>
+      <Node>System\x002EReflection</Node>
+      <Node>BindingFlags</Node>
+    </ActiveTreeViewPath>
+    <WindowState>Normal</WindowState>
+    <WindowBounds>6, 6, 1908, 1041</WindowBounds>
+    <SplitterPosition>0.398008651933645</SplitterPosition>
+    <TopPaneSplitterPosition>0.3</TopPaneSplitterPosition>
+    <BottomPaneSplitterPosition>0.3</BottomPaneSplitterPosition>
+    <SelectedSearchMode>TypeAndMember</SelectedSearchMode>
+    <Theme>Dark</Theme>
+  </SessionSettings>
+</ILSpy>
